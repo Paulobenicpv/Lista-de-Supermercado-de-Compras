@@ -19,33 +19,31 @@
 }
 *{box-sizing:border-box} html,body{height:100%}
 body{margin:0; font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial; color:var(--text); background:var(--bg);}
-.container{max-width:1080px;margin:0 auto;padding:28px 16px 120px}
+
+/* Desktop / tablet */
+.container{max-width:1280px;margin:0 auto;padding:28px 16px 120px}
 .head{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:12px}
 .brand{display:flex;align-items:center;gap:12px}
 .brand img{width:44px;height:44px;border-radius:12px;border:1px solid var(--line);background:#0b1117;object-fit:cover}
 h1{margin:0;font-size:clamp(20px,2.7vw,30px);line-height:1.2;font-weight:800;letter-spacing:.2px}
 .sub{font-size:12px;color:var(--muted)}
 .toolbar{display:flex;gap:10px;flex-wrap:wrap}
-.btn{border:1px solid var(--line);background:var(--panel);color:var(--text);min-height:40px;padding:10px 14px;border-radius:12px;font-size:14px;line-height:1;cursor:pointer}
+.btn{border:1px solid var(--line);background:var(--panel);color:var(--text);min-height:44px;padding:10px 14px;border-radius:12px;font-size:14px;line-height:1;cursor:pointer}
 .btn:hover{background:rgba(255,255,255,.02)}
 .btn.primary{background:linear-gradient(90deg,var(--accent),var(--accent-2));border:0;color:#fff;box-shadow:0 6px 16px rgba(31,122,224,.32)}
 .btn.danger{background:#c63a3a;border:0;color:#fff}
 .btn.ghost{background:transparent}
-.card{background:var(--panel);border:1px solid var(--line);border-radius:18px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:18px;overflow:hidden}
 .card-inner{padding:16px}
 
-/* ➤ Correção: dá mais respiro entre Preço e Adicionar */
+/* Linha de adicionar (desktop) */
 .grid{
   display:grid;
-  column-gap:16px;   /* espaço horizontal entre colunas */
-  row-gap:12px;      /* espaço vertical (mobile) */
-  grid-template-columns: 1fr 120px 200px 160px; /* nome | qtd | preço | botão */
+  column-gap:16px;
+  row-gap:12px;
+  grid-template-columns: 1fr 120px 250px 260px; /* nome | qtd | preço | botão */
 }
-/* botão não encosta no input ao lado */
-#btnAdd{
-  min-width:160px;
-  border-radius:12px;
-}
+#btnAdd{ min-width:260px; border-radius:12px; }
 
 .input{min-height:44px;border:1px solid var(--line);border-radius:12px;padding:0 12px;background:transparent;color:inherit;outline:none;line-height:1.15}
 .input::placeholder{color:var(--muted)}
@@ -59,38 +57,108 @@ h1{margin:0;font-size:clamp(20px,2.7vw,30px);line-height:1.2;font-weight:800;let
 .badge{display:inline-flex;align-items:center;min-height:32px;padding:0 12px;border-radius:999px;border:1px solid var(--line);background:var(--panel-2);font-size:12px;line-height:1}
 .badge.ok{background:#133b2a;color:#8de0b9;border-color:#1b513b}
 .badge.warn{background:#3c2d14;color:#f1c27c;border-color:#5a411b}
+
 .seg{display:flex;overflow:hidden;border:1px solid var(--line);border-radius:12px}
 .seg button{min-height:40px;padding:0 14px;border:0;background:transparent;color:inherit;cursor:pointer;line-height:1}
 .seg button.active{background:var(--panel-2)}
-.list{display:flex;flex-direction:column;gap:12px;margin-top:16px}
-.item{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:14px 16px}
+
+/* Lista */
+.list{display:flex;flex-direction:column;gap:8px;margin-top:16px}
+
+/* CARD DO ITEM: nome em cima, controles embaixo */
+.item{
+  display:grid;
+  grid-template-columns: 1fr;        /* uma coluna */
+  gap:8px;
+  align-items:start;
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:10px 12px;
+  overflow:hidden;
+}
+
+/* Linha de cima: checkbox + nome */
 .left{display:flex;gap:12px;align-items:center}
 .left input[type=checkbox]{width:18px;height:18px;accent-color:#22c55e}
-.name{min-width:220px;border:1px solid transparent;border-radius:10px;background:transparent;color:inherit;padding:8px 10px;font-size:16px;line-height:1.2}
+.name{
+  flex:1;
+  width:100%;
+  border:1px solid transparent;
+  border-radius:10px;
+  background:transparent;
+  color:inherit;
+  padding:8px 10px;
+  font-size:16px; line-height:1.2;
+}
 .name:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(31,122,224,.25)}
-.right{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
-.chip{display:inline-flex;align-items:center;min-height:32px;padding:0 12px;border-radius:999px;border:1px solid var(--line);line-height:1;font-size:12px}
+
+/* Linha de baixo: controles ocupam a largura */
+.right{
+  display:grid;
+  grid-template-columns: max-content max-content max-content 1fr max-content; /* chip | qtd | unit | (espaçador) | remover */
+  align-items:center;
+  column-gap:10px;
+  row-gap:6px;
+    justify-self:start;   /* antes esticava */
+}
+
+/* Controles */
+.chip{display:inline-flex;align-items:center;min-height:26px;padding:0 10px;border-radius:999px;border:1px solid var(--line);line-height:1;font-size:12px}
 .chip.pago{background:#133b2a;color:#8de0b9;border-color:#1b513b}
 .chip.pendente{background:#3c2d14;color:#f1c27c;border-color:#5a411b}
-.pill{display:flex;align-items:center;gap:8px}
+.pill{display:flex;align-items:center;gap:6px}
 .qty{display:inline-flex;align-items:stretch;border:1px solid var(--line);border-radius:10px;overflow:hidden}
-.qty button{border:0;background:transparent;width:36px;min-height:36px;color:inherit;cursor:pointer;line-height:1}
-.qty input{width:70px;text-align:center;border-left:1px solid var(--line);border-right:1px solid var(--line);background:transparent;color:inherit;min-height:36px}
+.qty button{border:0;background:transparent;width:32px;min-height:32px;color:inherit;cursor:pointer;line-height:1}
+.qty input{width:60px;text-align:center;border-left:1px solid var(--line);border-right:1px solid var(--line);background:transparent;color:inherit;min-height:32px}
 .unit{position:relative}
 .unit span{position:absolute;left:8px;top:50%;transform:translateY(-50%);font-size:12px;color:var(--muted)}
-.unit input{min-height:40px;width:130px;border:1px solid var(--line);border-radius:10px;background:transparent;color:inherit;padding-left:22px;text-align:right}
-.total{display:inline-flex;align-items:center;min-height:32px;padding:0 12px;border-radius:10px;background:var(--panel-2);border:1px solid var(--line);font-weight:600;font-size:12px;line-height:1}
-.btn.remove{background:#2a1416;border:1px solid #80333a;color:#fda4af}
+.unit input{min-height:32px;width:110px;border:1px solid var(--line);border-radius:10px;background:transparent;color:inherit;padding-left:22px;text-align:right}
+
+/* >>> TOTAL MENOR E SEM ESTICAR <<< */
+.total{
+  display:inline-flex;
+  align-items:center;
+  min-height:30px;         /* altura menor */
+  padding:0 10px;           /* menos espaço lateral */
+  border-radius:10px;       /* borda menor */
+  background:var(--panel-2);
+  border:1px solid var(--line);
+  font-weight:600;
+  font-size:12px;          /* fonte menor */
+  line-height:1;
+  justify-self:start;      /* NÃO estica: fica do tamanho do conteúdo */
+}
+
+.btn.remove{background:#2a1416;border:1px solid #80333a;color:#fda4af;padding:10px 12px}
 .btn.remove:hover{filter:brightness(1.05)}
+
 .footer{position:sticky;bottom:18px;margin-top:18px;background:rgba(0,0,0,.25);backdrop-filter:blur(6px);border:1px solid var(--line);border-radius:16px;padding:12px 16px}
 .end{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
 .muted{color:var(--muted)}
 .empty{text-align:center;color:var(--muted);border:1px dashed var(--line);border-radius:16px;padding:28px;margin-top:14px}
-.compact .item{padding:10px 12px}
+.compact .item{padding:8px 10px}
 .compact .name{font-size:15px}
-.compact .qty input{width:58px}
-@media (max-width: 760px){
-  .grid{grid-template-columns:1fr} /* empilha no mobile */
+.compact .qty input{width:54px}
+
+/* ====== MOBILE (<= 760px) ====== */
+@media (max-width:760px){
+  .container{padding:16px 12px 110px}
+  .grid{grid-template-columns:1fr; row-gap:10px}
+  #btnAdd{width:100%; min-width:0}
+
+  .row{grid-template-columns:1fr}
+  .toolbar{gap:8px; overflow-x:auto; -webkit-overflow-scrolling:touch; padding-bottom:6px}
+
+  .right{grid-template-columns: 1fr; }
+  .right .chip{justify-self:start}
+  .pill{justify-content:space-between}
+  .qty{width:100%}
+  .qty input{width:100%; min-width:0}
+  .unit input{width:100%}
+  .total{width:100%; justify-content:center; justify-self:stretch;}
+  .btn.remove{width:100%}
+  .badges{gap:6px}
 }
 </style>
 </head>
@@ -220,6 +288,7 @@ function render(){
 function renderItem(it){
   const row = document.createElement('div'); row.className='item';
 
+  /* Linha de cima: checkbox + nome */
   const left = document.createElement('div'); left.className='left';
   const cb = document.createElement('input'); cb.type='checkbox'; cb.checked=!!it.done;
   cb.onchange = ()=>{ it.done = cb.checked; save(); render(); };
@@ -227,6 +296,7 @@ function renderItem(it){
   name.oninput = ()=>{ it.name = name.value; save(); };
   left.append(cb,name);
 
+  /* Linha de baixo: controles em grade */
   const right = document.createElement('div'); right.className='right';
   const chip = document.createElement('span'); chip.className = 'chip ' + (it.done? 'pago':'pendente'); chip.textContent = it.done? 'Pago':'Pendente';
   right.appendChild(chip);
